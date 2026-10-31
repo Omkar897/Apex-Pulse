@@ -1,5 +1,7 @@
 # APEX PULSE — Fitness Subscription & Billing Management System
 
+> **Live Demo**: [https://apex-pulse-ivory.vercel.app](https://apex-pulse-ivory.vercel.app)
+
 A full-stack **Fitness Subscription & Billing Management Platform** built with **Next.js 14 (App Router)**, **TypeScript (`strict: true`)**, **Tailwind CSS**, **Clerk Authentication (RBAC + Webhooks)**, and **MongoDB (Mongoose ODM)**. All monetary values and invoices are denominated in **Indian Rupees (`INR / ₹`)**.
 
 ---
