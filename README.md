@@ -11,8 +11,9 @@ A full-stack **Fitness Subscription & Billing Management Platform** built with *
 1. [Key Features](#1-key-features)
 2. [System Architecture & Folder Structure](#2-system-architecture--folder-structure)
 3. [Quick Start & Local Setup](#3-quick-start--local-setup)
-4. [Snapshot Strategy: Historical Billing Integrity](#4-snapshot-strategy-historical-billing-integrity)
-5. [Automated Testing & Code Coverage](#5-automated-testing--code-coverage)
+4. [Environment Variables Template](#4-environment-variables-template)
+5. [Snapshot Strategy: Historical Billing Integrity](#5-snapshot-strategy-historical-billing-integrity)
+6. [Automated Testing & Code Coverage](#6-automated-testing--code-coverage)
 
 ---
 
@@ -86,7 +87,33 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
-## 4. Snapshot Strategy: Historical Billing Integrity
+## 4. Environment Variables Template
+
+Create a `.env.local` file (or configure in Vercel Project Settings) using the template below:
+
+```env
+# 1. Database Configuration (MongoDB Atlas or Local MongoDB URI)
+# Note: If omitted in local development, an in-memory MongoDB instance boots automatically.
+MONGODB_URI="mongodb+srv://<username>:<password>@cluster0.mongodb.net/apex-pulse?retryWrites=true&w=majority"
+
+# 2. Clerk Authentication & RBAC Configuration (https://dashboard.clerk.com)
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY="pk_test_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+CLERK_SECRET_KEY="sk_test_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+CLERK_WEBHOOK_SECRET="whsec_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+# 3. Clerk Route & Post-Login Redirect Configuration
+NEXT_PUBLIC_CLERK_SIGN_IN_URL="/sign-in"
+NEXT_PUBLIC_CLERK_SIGN_UP_URL="/sign-up"
+NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL="/auth/redirect"
+NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL="/auth/redirect"
+
+# 4. Application Base URL
+NEXT_PUBLIC_APP_URL="http://localhost:3000"
+```
+
+---
+
+## 5. Snapshot Strategy: Historical Billing Integrity
 
 ### Problem Statement: Why Foreign-Key Lookups Alone Fail in Subscription Billing
 In a naive database design, a `Transaction` document only stores a foreign-key reference (`planId: ObjectId`) to the `SubscriptionPlan` collection and populates the plan dynamically when rendering `/billing` or `/admin/dashboard`.
@@ -114,7 +141,7 @@ flowchart LR
 
 ---
 
-## 5. Automated Testing & Code Coverage
+## 6. Automated Testing & Code Coverage
 
 ```bash
 # Run TypeScript check, ESLint, and Vitest coverage suite
